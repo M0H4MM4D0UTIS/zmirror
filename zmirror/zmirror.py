@@ -1125,8 +1125,10 @@ def regex_url_reassemble(match_obj):
     # dbgprint('url_no_scheme', url_no_scheme, v=5)
     # add extdomains prefix in path if need
     if domain in external_domains_set:
-        path = '/extdomains/' + url_no_scheme
-
+        if 'https' in scheme:
+            path = '/extdomains/https-' + url_no_scheme
+        else:
+            path = '/extdomains/' + url_no_scheme
     # dbgprint('final_path', path, v=5)
     if enable_static_resource_CDN and url_no_scheme in url_to_use_cdn:
         # dbgprint('We Know:', url_no_scheme, v=5)
